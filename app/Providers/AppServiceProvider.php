@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
             'UserForgotPassword',
             'Config',
             'Shop',
+            'Product',
 
         ];
         foreach ($services as $service) {
@@ -44,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
             'UserForgotPassword',
             'Config',
             'Shop',
+            'Product',
 
         ];
 

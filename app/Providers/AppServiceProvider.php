@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
             'User',
             'DeviceToken',
             'UserForgotPassword',
+            'Config',
 
         ];
         foreach ($services as $service) {
@@ -40,6 +41,8 @@ class AppServiceProvider extends ServiceProvider
             'User',
             'DeviceToken',
             'UserForgotPassword',
+            'Config',
+
         ];
 
         foreach ($repos as $name) {

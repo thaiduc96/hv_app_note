@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
             'DeviceToken',
             'UserForgotPassword',
             'Config',
+            'Shop',
 
         ];
         foreach ($services as $service) {
@@ -42,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
             'DeviceToken',
             'UserForgotPassword',
             'Config',
+            'Shop',
 
         ];
 

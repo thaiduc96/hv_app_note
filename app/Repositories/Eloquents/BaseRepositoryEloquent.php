@@ -53,7 +53,14 @@ abstract class BaseRepositoryEloquent implements BaseContract
             $query = $query->orderBy($conditions['order_by'], $conditions['order_direction'] ?? 'asc');
         }
 
-        return $query->paginate($conditions['limit'] ?? $this->limit);
+        $query = $query->filter($conditions);
+
+        if(isset($conditions['limit']) OR isset($conditions['page']) ){
+            return $query->paginate($conditions['limit'] ?? $this->limit);
+        }else{
+            return $query->get();
+        }
+
     }
 
     /**

@@ -10,6 +10,8 @@ defined('GUARD_API') || define('GUARD_API', 'user_api');
 defined('DEVICE_TYPE_IOS') || define('DEVICE_TYPE_IOS', 'ios');
 defined('DEVICE_TYPE_ANDROID') || define('DEVICE_TYPE_ANDROID', 'android');
 
+defined('STATUS_ACTIVE') || define('STATUS_ACTIVE', 'active');
+defined('STATUS_INACTIVE') || define('STATUS_INACTIVE', 'inactive');
 
 
 defined('SEND_SMS') || define('SEND_SMS', 'sms');

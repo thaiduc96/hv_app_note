@@ -127,7 +127,6 @@ class Handler extends ExceptionHandler
             $errorMessage = $exception->getMessage();
         }
 
-        LogHelper::loggingError($errorMessage);
         return response()->json([
             'success' => false,
             'errorCode' => $errorCode,

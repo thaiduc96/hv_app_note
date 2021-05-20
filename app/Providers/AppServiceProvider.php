@@ -26,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
             'Config',
             'Shop',
             'Product',
+            'Order',
 
         ];
         foreach ($services as $service) {
@@ -46,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
             'Config',
             'Shop',
             'Product',
+            'Order',
 
         ];
 

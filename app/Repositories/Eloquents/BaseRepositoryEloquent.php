@@ -149,8 +149,12 @@ abstract class BaseRepositoryEloquent implements BaseContract
     {
         $db = $model instanceof Model ? $model : $this->find($model);
         if ($db) {
-            $db->fill($data)->save();
-
+            foreach ($db->getFillable() as $field) {
+                if (array_key_exists($field, $data)) {
+                    $db->$field = $data[$field];
+                }
+            }
+            $db->save();
             return $db;
         }
 

@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Traits\Filterable;
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\UuidTrait;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Storage;
-class Product extends Model
+
+class Product extends Base
 {
     use Filterable;
     use SoftDeletes;
@@ -23,7 +26,23 @@ class Product extends Model
         'price',
     ];
 
+    protected $casts = [
+      'price' => 'double'
+    ];
+
     public function getImageAttribute($value){
         return Storage::disk('product')->url($value);
+    }
+
+    public function getImageThumbnailAttribute($value){
+        return Storage::disk('product')->url($value);
+    }
+
+    public function orders(): BelongsToMany
+    {
+        return $this->belongsToMany(Order::class, 'order_products', 'product_id', 'order_id')
+            ->using(new class extends Pivot {
+                use UuidTrait;
+            })->withPivot('product_price','product_name','quantity');
     }
 }

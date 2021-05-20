@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDeviceTokensTable extends Migration
+class CreateOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,23 @@ class CreateDeviceTokensTable extends Migration
      */
     public function up()
     {
-        Schema::create('device_tokens', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
+
             $table->uuid('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('device_type', array('android', 'ios'));
-            $table->string('device_token');
+
+            $table->string('device_token')->nullable();
+
+            $table->string('receiver_address');
+            $table->string('receiver_name');
+            $table->string('receiver_phone', 30);
+            $table->string('note');
+            $table->string('status');
+
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index(['device_type']);
         });
     }
 
@@ -33,6 +40,6 @@ class CreateDeviceTokensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('device_tokens');
+        Schema::dropIfExists('orders');
     }
 }

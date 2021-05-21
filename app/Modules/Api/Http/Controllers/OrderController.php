@@ -4,7 +4,7 @@ namespace App\Modules\Api\Http\Controllers;
 
 use App\Facades\OrderFacade;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Order\CreateOrderRequest;
+use App\Modules\Api\Http\Requests\Order\CreateOrderRequest;
 use App\Repositories\Facades\OrderRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

@@ -14,6 +14,18 @@ class Order extends Base
     use Filterable;
     use SoftDeletes;
 
+    const STATUS_PENDING = 'pending';
+    const STATUS_COMPLETE = 'complete';
+    const STATUS_CANCEL = 'cancel';
+
+    public static function listStatus()
+    {
+        return [
+            self::STATUS_PENDING => 'Đang xử lý',
+            self::STATUS_COMPLETE => 'Hoàn thành',
+            self::STATUS_CANCEL => 'Huỷ',
+        ];
+    }
 
     protected $fillable = [
         'receiver_address',
@@ -23,6 +35,9 @@ class Order extends Base
         'status',
         'user_id',
         'device_token',
+        'delivery_time_from',
+        'delivery_time_to',
+        'total'
     ];
     protected $filterable = [
         'user_id',
@@ -31,17 +46,26 @@ class Order extends Base
     ];
 
     protected $casts = [
-        'price' => 'double'
+        'total' => 'double',
     ];
+
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->status = self::STATUS_PENDING;
+        });
+    }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class,'user_id','id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function deviceToken(): BelongsTo
     {
-        return $this->belongsTo(DeviceToken::class,'device_token_id','id');
+        return $this->belongsTo(DeviceToken::class, 'device_token_id', 'id');
     }
 
     public function products(): BelongsToMany

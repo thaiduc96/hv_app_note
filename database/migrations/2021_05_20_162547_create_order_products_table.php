@@ -16,6 +16,12 @@ class CreateOrderProductsTable extends Migration
         Schema::create('order_products', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->decimal('product_price',15)->default(0);
+            $table->string('product_name');
+            $table->integer('quantity');
+
+            $table->decimal('total',15)->nullable();
+
             $table->uuid('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
 

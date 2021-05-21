@@ -16,11 +16,15 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-
             $table->uuid('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string('device_token')->nullable();
+
+            $table->decimal('total',15)->nullable();
+
+            $table->string('delivery_time_from')->nullable();
+            $table->string('delivery_time_to')->nullable();
 
             $table->string('receiver_address');
             $table->string('receiver_name');

@@ -1,16 +1,17 @@
-<?php 
+<?php
 
 namespace App\Repositories\Eloquents;
- 
+
 use App\Models\Order;
 use App\Repositories\Contracts\OrderContract;
 use Illuminate\Database\Eloquent\Model;
 
- 
-class OrderRepositoryEloquent extends BaseRepositoryEloquent implements OrderContract 
+
+class OrderRepositoryEloquent extends BaseRepositoryEloquent implements OrderContract
 {
-public function getModel(): Model 
- { 
-return new Order; 
- } 
+    public function getModel(): Model
+    {
+        return new Order;
+    }
+
 }

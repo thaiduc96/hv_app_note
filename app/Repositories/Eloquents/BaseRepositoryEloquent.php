@@ -35,9 +35,7 @@ abstract class BaseRepositoryEloquent implements BaseContract
 
     public function with($relationship)
     {
-        $this->model->with(is_array($relationship) ? $relationship : [$relationship]);
-
-        return $this;
+        return $this->model->with(is_array($relationship) ? $relationship : [$relationship]);
     }
 
     /**
@@ -75,14 +73,14 @@ abstract class BaseRepositoryEloquent implements BaseContract
         return $this->model::find($id, $columns);
     }
 
-    public function findOrFail($id, $with = [])
+    public function findOrFail($id, $columns = ['*'])
     {
-        return $this->model::with($with)->findOrFail($id);
+        return $this->model::findOrFail($id);
     }
 
-    public function findByCondition($conditions, $with = [])
+    public function findByCondition($conditions, $columns = ['*'])
     {
-        return $this->model::with($with)->filter($conditions)->first();
+        return $this->model::filter($conditions)->first();
     }
 
     /**

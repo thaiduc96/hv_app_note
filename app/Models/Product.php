@@ -27,22 +27,36 @@ class Product extends Base
     ];
 
     protected $casts = [
-      'price' => 'double'
+        'price' => 'double'
     ];
 
-    public function getImageAttribute($value){
-        return Storage::disk('product')->url($value);
+    protected $attributes = [
+      'image_path',
+      'image_thumbnail_path',
+    ];
+
+
+    public function getImagePathAttribute($value)
+    {
+        return Storage::disk('product')->url($this->image);
     }
 
-    public function getImageThumbnailAttribute($value){
-        return Storage::disk('product')->url($value);
+    public function getImageThumbnailPathAttribute($value)
+    {
+        return Storage::disk('product')->url($this->image_thumbnail);
     }
+
+    public function filterProductIds($query, $value)
+    {
+        return $query->whereIn($this->getTable() . '.id', $value);
+    }
+
 
     public function orders(): BelongsToMany
     {
         return $this->belongsToMany(Order::class, 'order_products', 'product_id', 'order_id')
             ->using(new class extends Pivot {
                 use UuidTrait;
-            })->withPivot('product_price','product_name','quantity');
+            })->withPivot('product_price', 'product_name', 'quantity');
     }
 }

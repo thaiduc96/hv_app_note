@@ -23,4 +23,9 @@ class Shop extends Base
         'status',
     ];
 
+    protected $casts = [
+        'latitude' => 'double',
+        'longitude' => 'double',
+    ];
+
 }

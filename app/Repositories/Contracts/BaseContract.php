@@ -8,6 +8,8 @@ interface BaseContract
 
     public function filter($condition = []);
 
+    public function datatables($conditions = []);
+
     public function find($id);
 
     public function findOrFail($id, $with = []);
@@ -25,6 +27,8 @@ interface BaseContract
     public function updateOrCreate(array $attributes, array $values = []);
 
     public function delete($model);
+
+    public function recovery($model);
 
     public function deleteByConditions(array $conditions);
 }

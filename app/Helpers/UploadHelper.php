@@ -60,10 +60,8 @@ class UploadHelper
             return;
         }
 
-        $imagePath = $basePath . '/' . $path;
-
-        if (File::exists($imagePath)) {
-            Storage::delete($imagePath);
+        if (Storage::exists($path)) {
+            Storage::delete($path);
         }
     }
 

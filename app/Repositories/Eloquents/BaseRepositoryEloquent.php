@@ -38,6 +38,12 @@ abstract class BaseRepositoryEloquent implements BaseContract
         return $this->model->with(is_array($relationship) ? $relationship : [$relationship]);
     }
 
+    public function datatables($conditions = [])
+    {
+        $query = $this->model->select("*")->filter($conditions);
+        return $query;
+    }
+
     /**
      * Execute the query as a "select" statement.
      *
@@ -197,6 +203,21 @@ abstract class BaseRepositoryEloquent implements BaseContract
         }
 
         return $model->delete();
+    }
+
+    public function recovery($id)
+    {
+        $model = $id;
+        if (!($id instanceof Model)) {
+            $model = $this->withTrashed()->find($id);
+        }
+
+        if ($model !== null) {
+            $model->restore();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

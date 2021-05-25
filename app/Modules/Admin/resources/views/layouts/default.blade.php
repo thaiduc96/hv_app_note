@@ -8,6 +8,7 @@
     ?>
 @endsection
 
+
 @section('header')
     @include('Admin::layouts.header')
 @endsection
@@ -19,4 +20,5 @@
 @section('content')
     @parent
 @endsection
+
 

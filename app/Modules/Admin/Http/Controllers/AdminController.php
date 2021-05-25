@@ -15,6 +15,6 @@ class AdminController extends Controller
      */
     public function welcome()
     {
-        return view("Admin::welcome");
+        return view("Admin::dashboard");
     }
 }

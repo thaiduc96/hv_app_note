@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,14 +13,19 @@
     <link rel="stylesheet" type="text/css"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     @yield('css')
+    <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
 
-    <title> {{ env('APP_NAME') }}</title>
 </head>
 <body>
 <section class="material-half-bg">
     <div class="cover"></div>
 </section>
 
+@section('header')
+@show
+
+@section('sidebar')
+@show
 <div id="ajax_loader"></div>
 @yield('content')
 
@@ -39,5 +44,8 @@
         return false;
     });
 </script>
+
+@stack('scripts')
+
 </body>
 </html>

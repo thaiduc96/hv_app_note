@@ -4,6 +4,7 @@ namespace App\Modules\Admin\Http\Controllers;
 
 use App\Helpers\UploadHelper;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Modules\Admin\Http\Requests\Product\CreateProductRequest;
 use App\Modules\Admin\Http\Requests\Product\UpdateProductRequest;
 use App\Repositories\Facades\ProductRepository;
@@ -44,7 +45,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('Admin::products.create');
+        $model = new Product();
+        return view('Admin::products.create',compact('model'));
     }
 
 
@@ -55,7 +57,7 @@ class ProductController extends Controller
         try {
             $path = UploadHelper::uploadFromRequest('image', config('uploadpath.product'));
             $data['image'] = $path;
-            if($data['status'] == 'on'){
+            if(!empty($data['status']) && $data['status'] == 'on'){
                 $data['status'] = STATUS_ACTIVE;
             }elsE{
                 $data['status'] = STATUS_INACTIVE;
@@ -72,17 +74,23 @@ class ProductController extends Controller
     public function edit($id)
     {
         $model = ProductRepository::findOrFail($id);
-        return view('Admin::products.edit', compact('model'));
+        return view('Admin::products.create', compact('model'));
     }
 
     public function update(UpdateProductRequest $request, $id)
     {
-        $data = $request->all();
+        $model = ProductRepository::findOrFail($id);
         DB::beginTransaction();
         try {
+            $data = $request->all();
             $path = UploadHelper::uploadFromRequest('image', config('uploadpath.product'));
             $data['image'] = $path;
-            ProductRepository::create($data);
+            if(!empty($data['status']) && $data['status'] == 'on'){
+                $data['status'] = STATUS_ACTIVE;
+            }elsE{
+                $data['status'] = STATUS_INACTIVE;
+            }
+            ProductRepository::update($model,$data);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

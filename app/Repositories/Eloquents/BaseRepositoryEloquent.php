@@ -209,7 +209,7 @@ abstract class BaseRepositoryEloquent implements BaseContract
     {
         $model = $id;
         if (!($id instanceof Model)) {
-            $model = $this->withTrashed()->find($id);
+            $model = $this->model->withTrashed()->find($id);
         }
 
         if ($model !== null) {

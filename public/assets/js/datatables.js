@@ -97,3 +97,85 @@ function updateFormFile( formId= "form#data-form") {
         }
     });
 }
+
+
+$('body').on('click', '.restore_data', function (e) {
+    e.preventDefault();
+    var href = $(this).data('href');
+    swal({
+        title: "Bạn có muốn khôi phục dữ  liệu này không ?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Khôi phục !",
+        cancelButtonText: "Không",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    }, function(isConfirm) {
+        if (isConfirm) {
+            restoreData(href);
+            // swal("Đã xoá!", "Your imaginary file has been deleted.", "success");
+        } else {
+            // swal("Đã huỷ", "Dữ liệu của bạn được ", "error");
+        }
+    });
+});
+
+
+function restoreData(href) {
+    $.ajax({
+        type: 'PATCH',
+        url: href,
+        dataType: 'json',
+        success: function (data) {
+            if (data.success === true) {
+                showSuccess();
+                oTable.draw();
+            }
+        }, error: function (data) {
+            showError(data.responseJSON.errorMessage);
+        }
+    }).done(function (data) {
+
+        $(this).prop('disabled', false);
+    });
+}
+
+$('body').on('click', '.delete_data', function (e) {
+    e.preventDefault();
+    var href = $(this).data('href');
+    swal({
+        title: "Bạn có muốn xoá dữ liệu này ?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Xoá!",
+        cancelButtonText: "Không",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    }, function(isConfirm) {
+        if (isConfirm) {
+            deleteData(href);
+            // swal("Đã xoá!", "Your imaginary file has been deleted.", "success");
+        } else {
+            // swal("Đã huỷ", "Dữ liệu của bạn được ", "error");
+        }
+    });
+})
+
+
+function deleteData(href) {
+    $.ajax({
+        type: 'DELETE',
+        url: href,
+        dataType: 'json',
+        success: function (data) {
+            if (data.success === true) {
+                showSuccess();
+                oTable.draw();
+            }
+        }, error: function (data) {
+            showError(data.responseJSON.errorMessage);
+        }
+    }).done(function (data) {
+        $(this).prop('disabled', false);
+    });
+}

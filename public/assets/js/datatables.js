@@ -36,3 +36,64 @@ function dataTables(route, columns, id = '#data-datatables', orderCol = 0) {
         pageLength: 10
     });
 }
+
+function showImage(className) {
+    $('body').on('change', "." + className, function (e) {
+        var imageShowName = className + "-show";
+        $("." + imageShowName).remove();
+        for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+            var file = e.originalEvent.srcElement.files[i];
+            var img = document.createElement("img");
+            img.className = imageShowName;
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                img.src = reader.result;
+            }
+            reader.readAsDataURL(file);
+            $("." + className).after(img);
+            $("." + imageShowName).addClass('image-in-form');
+        }
+    });
+}
+
+function updateFormFile( formId= "form#data-form") {
+
+
+    const form = $(formId );
+    const formData = new FormData(form[0]);
+    formData.append("_method",  form.attr('method'));
+
+    form.find('span.messageErrors').parents('.form-group').remove();
+    form.find("br").remove();
+
+    $.ajax({
+        type: 'POST',
+        url:  form.attr('action'),
+        data: formData,
+        processData: false,
+        enctype: 'multipart/form-data',
+        dataType: 'json',
+        contentType: false,
+        success: function (result) {
+            if(result.success == true){
+                showSuccess();
+                const backpage = form.data('backpage');
+                if(backpage){
+                    setTimeout(function () {
+                        window.location.replace(backpage);
+                    }, 1500);
+                }else{
+                    oTable.draw();
+                }
+            }
+        }, error: function (errors) {
+            const response = errors.responseJSON;
+            showError(response.errorMessage);
+            $.each(response.errorMessageArray, function (elementName, arrMessagesEveryElement) {
+                $.each(arrMessagesEveryElement, function (messageType, messageValue) {
+                    $('form#data-form').find('.' + elementName).parents('.form-group').append('<span class="messageErrors" style="color:red">' + messageValue + '</span><br>');
+                });
+            });
+        }
+    });
+}

@@ -19,3 +19,9 @@ $('#search-form').on('submit', function (e) {
     oTable.draw();
     e.preventDefault();
 });
+
+showImage('image');
+
+$('body').on('click', '.btn-submit', function (e) {
+    updateFormFile();
+});

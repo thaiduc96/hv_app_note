@@ -80,6 +80,8 @@ class Handler extends ExceptionHandler
                         }
                     }
                     $errorMessage = implode("\r\n", $errorMessage);
+
+                    $errorMessageArray = $errors;
                 }
 
             } else if ($exception instanceof InvalidException) {
@@ -126,11 +128,15 @@ class Handler extends ExceptionHandler
                 $errorMessage = $exception->getMessage();
             }
 
-            return response()->json([
+            $res = [
                 'success' => false,
                 'errorCode' => $errorCode,
                 'errorMessage' => $errorMessage
-            ], $statusCode);
+            ];
+            if(!empty($errorMessageArray)){
+                $res['errorMessageArray'] = $errorMessageArray;
+            }
+            return response()->json($res, $statusCode);
         }else{
             return parent::render($request, $exception);
         }

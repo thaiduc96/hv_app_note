@@ -1,0 +1,46 @@
+.image-in-form{
+    max-height: 300px;width: auto;
+
+    padding-top: 20px;
+}
+
+.image-form{
+    max-height: 300px;width: auto;
+
+    padding-top: 20px;
+}
+
+.image-in-datatable{
+    max-height: 60px;
+    width: auto;
+}
+/*.dropzone .dz-preview .dz-image {*/
+/*    width: 120px;*/
+/*    height: 120px;*/
+/*}*/
+/*.dropzone .dz-preview .dz-image img {*/
+/*    width: 120px;*/
+/*    height: 120px;*/
+/*}*/
+
+/*table.dataTable thead th{*/
+/*    font-weight: unset !important;*/
+/*}*/
+
+/*#data-datatables a.btn{*/
+/*    color: #ffffff;*/
+/*}*/
+/*tfoot {*/
+/*    display: table-header-group;*/
+/*}*/
+
+/*.modal-backdrop.in{*/
+/*    opacity: 0 !important;*/
+/*}*/
+
+/*.modal-backdrop{*/
+/*    z-index: 0 !important;*/
+/*}*/
+/*.tile .tile-header .btn{*/
+/*    margin-right: 0 !important;*/
+/*}*/

@@ -33,8 +33,8 @@ class ProductController extends Controller
                 ->editColumn('status', function ($model) {
                     return view("Admin::layouts.components.datatable-status", ['status' => $model->status]);
                 })
-                ->editColumn('image_thumbnail', function ($model) {
-                    return view("Admin::layouts.components.image-datatables", ['url' => $model->image_thumbnail]);
+                ->editColumn('image', function ($model) {
+                    return view("Admin::layouts.components.image-datatables", ['url' => $model->image]);
                 })
                 ->rawColumns(['status', 'image_thumbnail', 'action'])
                 ->make(true);
@@ -55,6 +55,11 @@ class ProductController extends Controller
         try {
             $path = UploadHelper::uploadFromRequest('image', config('uploadpath.product'));
             $data['image'] = $path;
+            if($data['status'] == 'on'){
+                $data['status'] = STATUS_ACTIVE;
+            }elsE{
+                $data['status'] = STATUS_INACTIVE;
+            }
             ProductRepository::create($data);
             DB::commit();
         } catch (\Exception $e) {
@@ -67,7 +72,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $model = ProductRepository::findOrFail($id);
-        return view('Admin::banners.edit', compact('model'));
+        return view('Admin::products.edit', compact('model'));
     }
 
     public function update(UpdateProductRequest $request, $id)

@@ -18,6 +18,7 @@ class Product extends Base
         'name',
         'price',
         'image',
+        'status',
         'image_thumbnail',
         'description',
     ];
@@ -30,21 +31,21 @@ class Product extends Base
         'price' => 'double'
     ];
 
-    protected $attributes = [
-      'image_path',
-      'image_thumbnail_path',
-    ];
-
-
-    public function getImagePathAttribute($value)
-    {
-        return Storage::disk('product')->url($this->image);
-    }
-
-    public function getImageThumbnailPathAttribute($value)
-    {
-        return Storage::disk('product')->url($this->image_thumbnail);
-    }
+//    protected $attributes = [
+//      'image_path',
+//      'image_thumbnail_path',
+//    ];
+//
+//
+//    public function getImagePathAttribute($value)
+//    {
+//        return Storage::disk('product')->url($this->image);
+//    }
+//
+//    public function getImageThumbnailPathAttribute($value)
+//    {
+//        return Storage::disk('product')->url($this->image_thumbnail);
+//    }
 
     public function filterProductIds($query, $value)
     {

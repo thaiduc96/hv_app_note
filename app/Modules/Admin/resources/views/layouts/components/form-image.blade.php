@@ -5,5 +5,9 @@
     @if(!empty($model))
         <img class="{{$name}}-in-form {{$name}}-show image-form" src="{{ asset($model->$name) }}" >
     @endif
-    {!! $errors->first($name, '<p  style="color:red;" class="help-block mb-0">:message</p>') !!}
+    @error($name)
+    <span class="invalid-feedback" role="alert">
+       <strong>{{ $message }}</strong>
+    </span>
+    @enderror
 </div>

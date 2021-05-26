@@ -1,5 +1,12 @@
 let oTable = dataTables(
-    $("#datatable_url").val(),
+    {
+        "url": $("#datatable_url").val(),
+        "dataType": "json",
+        "type": "GET",
+        "data": function (d) {
+            d.name = $('input[name=search_name]').val();
+        },
+    },
     [
         {data: 'name', name: 'name', "className": "text-center"},
         {data: 'price', name: 'price', "className": "text-center"},

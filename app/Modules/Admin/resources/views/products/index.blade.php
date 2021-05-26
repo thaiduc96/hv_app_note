@@ -16,13 +16,23 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="tile">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a class="btn btn-outline-success" href="{{ route('admin.products.create') }}">
-                                <i class="fa fa-plus" aria-hidden="true"></i>Thêm mới
-                            </a>
-                        </div>
+                    <div class="tile-body">
+                        <form class="row" role="form" id="search-form" method="post">
+                            <div class="form-group col-md-2">
+                                <label class="control-label">Tên</label>
+                                <input class="form-control search_name" name="search_name" id="search_name">
+                            </div>
+                            <div class="form-group col-md-3 align-self-end">
+                                <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-search"></i>Tìm
+                                    kiếm
+                                </button>
+                                <a class="btn btn-outline-success" href="{{ route('admin.products.create') }}">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>Thêm mới
+                                </a>
+                            </div>
+                        </form>
                     </div>
+                    <hr>
                     <br>
                     <div class="tile-body">
                         <div class=" table-responsive">

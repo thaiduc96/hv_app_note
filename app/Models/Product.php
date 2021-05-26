@@ -46,6 +46,10 @@ class Product extends Base
 //    {
 //        return Storage::disk('product')->url($this->image_thumbnail);
 //    }
+    public function filterName($query, $value){
+        return $query->where($this->table.'.name','LIKE', "%".$value."%");
+    }
+
 
     public function filterProductIds($query, $value)
     {

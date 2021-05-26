@@ -10,6 +10,7 @@ use App\Modules\Admin\Http\Requests\Product\UpdateProductRequest;
 use App\Repositories\Facades\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
@@ -35,7 +36,7 @@ class ProductController extends Controller
                     return view("Admin::layouts.components.datatable-status", ['status' => $model->status]);
                 })
                 ->editColumn('image', function ($model) {
-                    return view("Admin::layouts.components.image-datatables", ['url' => $model->image]);
+                    return view("Admin::layouts.components.image-datatables", ['url' =>$model->image]);
                 })
                 ->rawColumns(['status', 'image_thumbnail', 'action'])
                 ->make(true);
@@ -90,7 +91,11 @@ class ProductController extends Controller
             }elsE{
                 $data['status'] = STATUS_INACTIVE;
             }
+
+            $oldImage = $model->image;
+
             ProductRepository::update($model,$data);
+            UploadHelper::delete($oldImage);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

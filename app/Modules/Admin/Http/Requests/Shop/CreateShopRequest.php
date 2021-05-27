@@ -13,7 +13,7 @@ class CreateShopRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class CreateShopRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'address' => 'required',
+            'zalo_phone' => 'required',
+            'latitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'longitude' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/']
         ];
     }
 }

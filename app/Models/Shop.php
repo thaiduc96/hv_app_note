@@ -18,8 +18,6 @@ class Shop extends Base
         'status',
     ];
     protected $filterable = [
-        'code',
-        'target',
         'status',
     ];
 
@@ -27,5 +25,13 @@ class Shop extends Base
         'latitude' => 'double',
         'longitude' => 'double',
     ];
+
+    public function filterAddress($query, $value){
+        return $query->where($this->table.'.address','LIKE', "%".$value."%");
+    }
+
+    public function filterZaloPhone($query, $value){
+        return $query->where($this->table.'.zalo_phone','LIKE', "%".$value."%");
+    }
 
 }

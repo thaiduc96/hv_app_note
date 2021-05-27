@@ -4,13 +4,13 @@ let oTable = dataTables(
         "dataType": "json",
         "type": "GET",
         "data": function (d) {
-            d.name = $('input[name=search_name]').val();
+            d.address = $('input[name=search_address]').val();
+            d.zalo_phone = $('input[name=search_zalo_phone]').val();
         },
     },
     [
-        {data: 'name', name: 'name', "className": "text-center"},
-        {data: 'price', name: 'price', "className": "text-center"},
-        {data: 'image', name: 'image', "className": "text-center"},
+        {data: 'address', name: 'address', "className": "text-center"},
+        {data: 'zalo_phone', name: 'zalo_phone', "className": "text-center"},
         {data: 'status', name: 'status', "className": "text-center"},
         {
             data: 'action',
@@ -21,12 +21,11 @@ let oTable = dataTables(
             width: "11%",
         }
     ]);
+
 $('#search-form').on('submit', function (e) {
     oTable.draw();
     e.preventDefault();
 });
-
-showImage('image');
 
 $('body').on('click', '.btn-submit', function (e) {
     updateFormFile();

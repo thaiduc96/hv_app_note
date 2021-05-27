@@ -1,3 +1,4 @@
+
 function dataTables(route, columns, id = '#data-datatables', orderCol = 0) {
     return $(id).DataTable({
         processing: true,
@@ -25,6 +26,7 @@ function dataTables(route, columns, id = '#data-datatables', orderCol = 0) {
             "info": "Hiển thị trang _PAGE_ của tổng _PAGES_ trang",
             "infoEmpty": "Không có bản ghi nào!!!",
             "infoFiltered": "(Đã lọc từ tổng _MAX_ bản ghi)",
+            "search" : "Tìm kiếm chi tiết",
             "paginate": {
                 "previous": "Trang trước",
                 "first": "Trang đầu",
@@ -63,7 +65,7 @@ function updateFormFile( formId= "form#data-form") {
     const formData = new FormData(form[0]);
     formData.append("_method",  form.attr('method'));
 
-    form.find('span.messageErrors').parents('.form-group').remove();
+    form.find('span.messageErrors').remove();
     form.find("br").remove();
 
     $.ajax({

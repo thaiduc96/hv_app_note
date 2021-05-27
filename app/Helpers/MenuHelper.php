@@ -13,7 +13,6 @@ class MenuHelper
             'dashboard' => [
                 'label' => 'Dashboard',
                 'icon' => 'icon icon-speedometer',
-//                'route_url' => route('admin.dashboard'),
                 'route_name' => 'admin.dashboard',
                 'child_route_name' => [
                     'admin.dashboard'
@@ -43,6 +42,34 @@ class MenuHelper
                         'route_name' => 'admin.products.create',
                         'child_route_name' => [
                             'admin.products.create',
+                        ]
+                    ],
+                ]
+            ],
+            'shops' => [
+                'label' => 'Địa chỉ',
+                'icon' => 'icon icon-present',
+                'child_route_name' => [
+                    'admin.shops.index',
+                    'admin.shops.create',
+                    'admin.shops.edit',
+                ],
+                'sub_menu' => [
+                    [
+                        'label' => 'Danh sách Địa chỉ',
+                        'icon' => 'fa fa-caret-right',
+                        'route_name' => 'admin.shops.index',
+                        'child_route_name' => [
+                            'admin.shops.index',
+                            'admin.shops.edit'
+                        ]
+                    ],
+                    [
+                        'label' => 'Tạo Địa chỉ',
+                        'icon' => 'fa fa-caret-right',
+                        'route_name' => 'admin.shops.create',
+                        'child_route_name' => [
+                            'admin.shops.create',
                         ]
                     ],
                 ]

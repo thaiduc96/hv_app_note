@@ -33,7 +33,7 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Throwable  $exception
+     * @param \Throwable $exception
      * @return void
      *
      * @throws \Throwable
@@ -46,15 +46,15 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $exception
+     * @param \Illuminate\Http\Request $request
+     * @param \Throwable $exception
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Throwable
      */
     public function render($request, Throwable $exception)
     {
-        if($request->wantsJson()) {
+        if ($request->wantsJson()) {
 
             if ($exception instanceof ValidationException) {
                 $statusCode = Response::HTTP_UNPROCESSABLE_ENTITY;
@@ -133,11 +133,11 @@ class Handler extends ExceptionHandler
                 'errorCode' => $errorCode,
                 'errorMessage' => $errorMessage
             ];
-            if(!empty($errorMessageArray)){
+            if (!empty($errorMessageArray)) {
                 $res['errorMessageArray'] = $errorMessageArray;
             }
             return response()->json($res, $statusCode);
-        }else{
+        } else {
             return parent::render($request, $exception);
         }
     }

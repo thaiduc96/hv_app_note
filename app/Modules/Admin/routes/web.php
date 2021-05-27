@@ -12,6 +12,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
         Route::get('/', 'AdminController@welcome')->name('admin.dashboard');
 
         include_once('items/product.php');
+        include_once('items/shop.php');
     });
 
 });

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Facades\OrderFacade;
 use App\Traits\Filterable;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,6 +14,8 @@ class Order extends Base
 {
     use Filterable;
     use SoftDeletes;
+
+    CONST CODE_HEAD = 'OD';
 
     const STATUS_PENDING = 'pending';
     const STATUS_COMPLETE = 'complete';
@@ -28,6 +31,8 @@ class Order extends Base
     }
 
     protected $fillable = [
+        'code',
+        'code_number',
         'receiver_address',
         'receiver_name',
         'receiver_phone',
@@ -55,8 +60,29 @@ class Order extends Base
         parent::boot();
         static::creating(function ($model) {
             $model->status = self::STATUS_PENDING;
+
+            $nextCode = OrderFacade::getNextCode();
+            $model->code = $nextCode['code'];
+            $model->code_number = $nextCode['code_number'];
         });
     }
+
+    public function filterCode($query, $value){
+        return $query->where($this->table.'.code','LIKE', "%".$value."%");
+    }
+
+    public function filterReceiverName($query, $value){
+        return $query->where($this->table.'.receiver_name','LIKE', "%".$value."%");
+    }
+
+    public function filterReceiverPhone($query, $value){
+        return $query->where($this->table.'.receiver_phone','LIKE', "%".$value."%");
+    }
+    public function filterReceiverAddress($query, $value){
+        return $query->where($this->table.'.receiver_address','LIKE', "%".$value."%");
+    }
+
+
 
     public function user(): BelongsTo
     {

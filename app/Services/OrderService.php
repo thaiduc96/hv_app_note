@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Helpers\AuthHelper;
+use App\Helpers\CodeHelper;
+use App\Models\Order;
 use App\Repositories\Facades\OrderRepository;
 use App\Repositories\Facades\ProductRepository;
 
@@ -54,5 +56,20 @@ class OrderService
     {
         $data = OrderRepository::with(['products'])->findOrFail($id);
         return $data;
+    }
+
+    public function getNextCode()
+    {
+        $maxNumber = Order::max('code_number');
+        if (empty($maxNumber)) {
+            $maxNumber = 0;
+        }
+        $maxNumber = $maxNumber + 1;
+
+        $code = CodeHelper::fullNumberWithLeadingZero($maxNumber);
+        return [
+            'code' => Order::CODE_HEAD. $code,
+            'code_number' => $maxNumber
+        ];
     }
 }

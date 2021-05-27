@@ -18,6 +18,16 @@ class MenuHelper
                     'admin.dashboard'
                 ],
             ],
+
+            'orders' => [
+                'label' => 'Đơn hàng',
+                'icon' => 'icon icon-speedometer',
+                'route_name' => 'admin.orders.index',
+                'child_route_name' => [
+                    'admin.orders.index',
+                    'admin.orders.edit',
+                ],
+            ],
             'products' => [
                 'label' => 'Sản phẩm',
                 'icon' => 'icon icon-present',

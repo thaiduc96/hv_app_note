@@ -13,6 +13,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
 
         include_once('items/product.php');
         include_once('items/shop.php');
+        include_once('items/order.php');
     });
 
 });

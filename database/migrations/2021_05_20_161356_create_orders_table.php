@@ -23,8 +23,8 @@ class CreateOrdersTable extends Migration
 
             $table->decimal('total',15)->nullable();
 
-            $table->string('delivery_time_from')->nullable();
-            $table->string('delivery_time_to')->nullable();
+            $table->time('delivery_time_from')->nullable();
+            $table->time('delivery_time_to')->nullable();
 
             $table->string('receiver_address');
             $table->string('receiver_name');

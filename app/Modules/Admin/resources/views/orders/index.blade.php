@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="control-label">Tên người nhận</label>
-                                <input class="form-control " name="search_receiver_name" >
+                                <input class="form-control " name="search_receiver_name">
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="control-label">SĐT người nhận</label>
@@ -36,8 +36,8 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="control-label">Trạng thái</label>
-                                <select class="form-control" name="search_status" >
-                                    <option value="">Tất cả </option>
+                                <select class="form-control" name="search_status">
+                                    <option value="">Tất cả</option>
                                     @foreach(\App\Models\Order::listStatus() as $key =>  $value)
                                         <option value="{{ $key }}">{{ $value }}</option>
                                     @endforeach
@@ -82,15 +82,20 @@
     <script>
 
         $('input[name=search_delivery_time]').daterangepicker({
+            autoApply: true,
             timePicker: true,
             timePicker24Hour: true,
-            timePickerIncrement: 1,
+            timePickerIncrement: 5,
             timePickerSeconds: false,
             locale: {
-                format: 'HH:mm'
+                format: 'HH:mm',
+                cancelLabel: 'Xoá',
+                applyLabel: 'Chọn',
             }
         }).on('show.daterangepicker', function (ev, picker) {
             picker.container.find(".calendar-table").hide();
+        }).on('cancel.daterangepicker', function (ev, picker) {
+            $('input[name=search_delivery_time]').val('');
         });
     </script>
 @endpush

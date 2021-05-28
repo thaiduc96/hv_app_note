@@ -32,8 +32,8 @@ class CreateOrderRequest extends FormRequest
             'products' => 'required|array|min:1',
             'products.*.product_id' => 'required|exists:products,id,deleted_at,NULL',
             'products.*.quantity' => 'required|numeric|min:0|max:99999999999',
-            'delivery_time_from' => 'nullable|date_format:H:i',
-            'delivery_time_to' => 'nullable|date_format:H:i|after:delivery_time_from',
+            'delivery_time_from' => 'nullable|date_format:H:i:s',
+            'delivery_time_to' => 'nullable|date_format:H:i:s|after:delivery_time_from',
         ];
     }
 }

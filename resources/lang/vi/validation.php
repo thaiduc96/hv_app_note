@@ -224,7 +224,7 @@ return [
         'services' => 'Dịch vụ',
         'short_note' => 'Mô tả ngắn',
         'file' => 'Tập tin',
-        "note" => 'Mô tả chi tiết',
+        "note" => 'Ghi chú',
 
         'doctor_id' => 'ID bác sĩ',
         'diagnose' => 'Chuẩn đoán',
@@ -248,6 +248,14 @@ return [
         'user' => 'Nhân viên',
         'account_type_facebook' => 'Facebook',
         'account_type_google' => 'Google',
+
+        'receiver_address' => 'Địa chỉ người nhận',
+        'receiver_name' => 'Tên người nhận',
+        'receiver_phone' => 'SĐT người nhận',
+        'products' => 'Danh sách sản phẩm',
+        'quantity' => 'Số lượng',
+        'delivery_time_from' => 'Thời gian bắt đầu',
+        'delivery_time_to' => 'Thời gian kết thúc',
 
     ],
 ];

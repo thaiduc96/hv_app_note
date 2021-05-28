@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\Helpers\LogHelper;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -96,6 +97,10 @@ class Handler extends ExceptionHandler
                 $errorCode = $errorCode ?: ErrorCode::FORBIDDEN;
                 $errorMessage = $exception->getMessage();
 
+            } else if ($exception instanceof ModelNotFoundException) {
+                $statusCode = Response::HTTP_NOT_FOUND;
+                $errorCode = ErrorCode::NOT_FOUND;
+                $errorMessage = trans('msg.model_not_found');
             } else if ($exception instanceof NotFoundException) {
                 $statusCode = Response::HTTP_NOT_FOUND;
                 $errorCode = $exception->getErrorCode();

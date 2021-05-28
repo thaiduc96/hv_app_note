@@ -7,6 +7,7 @@ let oTable = dataTables(
             d.code = $('input[name=search_code]').val();
             d.receiver_phone = $('input[name=search_receiver_phone]').val();
             d.receiver_name = $('input[name=search_receiver_name]').val();
+            d.delivery_time = $('input[name=search_delivery_time]').val();
             d.status = $('select[name=search_status]').val();
         },
     },

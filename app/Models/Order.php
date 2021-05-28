@@ -66,6 +66,23 @@ class Order extends Base
         });
     }
 
+    public function filterDeliveryTime($query, $value)
+    {
+        if (!empty($value)) {
+            $rangeTime = explode('-',$value);
+            $from = trim($rangeTime[0]) . ":00";
+            $to = trim($rangeTime[1]) . ":00";
+            return  $query->where(function ($q) use ($from, $to){
+                return $q->where($this->getTable() . '.delivery_time_from' , '>=', $from)
+                    ->where($this->getTable() . '.delivery_time_from' , '<=', $to);
+            })->orWhere(function ($q) use ($to, $from){
+                return $q->where($this->getTable() . '.delivery_time_to' , '>=', $from)
+                    ->where($this->getTable() . '.delivery_time_to' , '<=', $to);
+            });
+        }
+        return $query;
+    }
+
     public function filterStatus($query, $value)
     {
         if (!empty($value)) {

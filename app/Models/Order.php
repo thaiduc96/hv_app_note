@@ -15,7 +15,7 @@ class Order extends Base
     use Filterable;
     use SoftDeletes;
 
-    CONST CODE_HEAD = 'OD';
+    const CODE_HEAD = 'ĐH';
 
     const STATUS_PENDING = 'pending';
     const STATUS_COMPLETE = 'complete';
@@ -47,7 +47,6 @@ class Order extends Base
     protected $filterable = [
         'user_id',
         'device_token',
-        'status',
     ];
 
     protected $casts = [
@@ -67,21 +66,45 @@ class Order extends Base
         });
     }
 
-    public function filterCode($query, $value){
-        return $query->where($this->table.'.code','LIKE', "%".$value."%");
+    public function filterStatus($query, $value)
+    {
+        if (!empty($value)) {
+            return $query->where($this->getTable() . '.status', $value );
+        }
+        return $query;
     }
 
-    public function filterReceiverName($query, $value){
-        return $query->where($this->table.'.receiver_name','LIKE', "%".$value."%");
+    public function filterCode($query, $value)
+    {
+        if (!empty($value)) {
+            return $query->where($this->getTable() . '.code', 'LIKE', "%" . $value . "%");
+        }
+        return $query;
     }
 
-    public function filterReceiverPhone($query, $value){
-        return $query->where($this->table.'.receiver_phone','LIKE', "%".$value."%");
-    }
-    public function filterReceiverAddress($query, $value){
-        return $query->where($this->table.'.receiver_address','LIKE', "%".$value."%");
+    public function filterReceiverName($query, $value)
+    {
+        if (!empty($value)) {
+            return $query->where($this->getTable() . '.receiver_name', 'LIKE', "%" . $value . "%");
+        }
+        return $query;
     }
 
+    public function filterReceiverPhone($query, $value)
+    {
+        if (!empty($value)) {
+            return $query->where($this->getTable() . '.receiver_phone', 'LIKE', "%" . $value . "%");
+        }
+        return $query;
+    }
+
+    public function filterReceiverAddress($query, $value)
+    {
+        if (!empty($value)) {
+            return $query->where($this->table . '.receiver_address', 'LIKE', "%" . $value . "%");
+        }
+        return $query;
+    }
 
 
     public function user(): BelongsTo
@@ -99,6 +122,6 @@ class Order extends Base
         return $this->belongsToMany(Product::class, 'order_products', 'order_id', 'product_id')
             ->using(new class extends Pivot {
                 use UuidTrait;
-            })->withPivot('product_price', 'product_name', 'quantity');
+            })->withPivot('product_price', 'product_name', 'quantity','total');
     }
 }

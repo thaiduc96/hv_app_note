@@ -15,9 +15,9 @@
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="{{asset('assets/alertify/css/alertify.min.css')}}" id='aleritify_ds' rel="stylesheet">
     <link href="{{asset('assets/alertify/css/themes/bootstrap.min.css')}}" id='aleritify_s' rel="stylesheet">
+    <link href="{{asset('assets/daterangepicker/daterangepicker.css')}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/custom.css') }}">
     <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
-
 </head>
 <body>
 <section class="material-half-bg">
@@ -54,6 +54,9 @@
 <script type="text/javascript" src="{{asset('assets/js/plugins/sweetalert.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/plugins/bootstrap-datepicker.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/plugins/select2.min.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('assets/moment/moment.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/daterangepicker/daterangepicker.min.js')}}"></script>
 
 <script>
     $.ajaxSetup({

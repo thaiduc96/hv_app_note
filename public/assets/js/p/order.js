@@ -6,14 +6,15 @@ let oTable = dataTables(
         "data": function (d) {
             d.code = $('input[name=search_code]').val();
             d.receiver_phone = $('input[name=search_receiver_phone]').val();
-            d.status = $('input[select=search_status]').val();
+            d.receiver_name = $('input[name=search_receiver_name]').val();
+            d.status = $('select[name=search_status]').val();
         },
     },
     [
         {data: 'code', name: 'code', "className": "text-center"},
         {data: 'receiver_info', name: 'receiver_info'},
         {data: 'total', name: 'total'},
-        {data: 'delivery_range_time', name: 'delivery_range_time'},
+        {data: 'delivery_range_time', name: 'delivery_time_from'},
         {data: 'status', name: 'status', "className": "text-center"},
         {
             data: 'action',

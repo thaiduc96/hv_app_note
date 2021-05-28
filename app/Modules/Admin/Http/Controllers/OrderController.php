@@ -32,10 +32,11 @@ class OrderController extends Controller
                 })
                 ->editColumn('status', function ($model) {
                     return view("Admin::layouts.components.datatable-status", ['status' => $model->status]);
+                })->editColumn('total', function ($model) {
+                    return number_format($model->total);
                 })
                 ->addColumn('delivery_range_time', function ($model) {
-                    return view('Admin::layouts.components.order.delivery-range-time',['order' => $model]);
-
+                    return view('Admin::layouts.components.order.delivery-range-time', ['order' => $model]);
                 })
                 ->addColumn('receiver_info', function ($model) {
                     $name = $model->receiver_name ?? '';
@@ -52,7 +53,7 @@ class OrderController extends Controller
     public function create()
     {
         $model = new Order();
-        return view('Admin::orders.create',compact('model'));
+        return view('Admin::orders.create', compact('model'));
     }
 
 
@@ -61,9 +62,9 @@ class OrderController extends Controller
         $data = $request->all();
         DB::beginTransaction();
         try {
-            if(!empty($data['status']) && $data['status'] == 'on'){
+            if (!empty($data['status']) && $data['status'] == 'on') {
                 $data['status'] = STATUS_ACTIVE;
-            }elsE{
+            } else {
                 $data['status'] = STATUS_INACTIVE;
             }
             OrderRepository::create($data);
@@ -77,7 +78,7 @@ class OrderController extends Controller
 
     public function edit($id)
     {
-        $model = OrderRepository::findOrFail($id);
+        $model = OrderRepository::with(['products'])->findOrFail($id);
         return view('Admin::orders.create', compact('model'));
     }
 
@@ -87,12 +88,12 @@ class OrderController extends Controller
         DB::beginTransaction();
         try {
             $data = $request->all();
-            if(!empty($data['status']) && $data['status'] == 'on'){
+            if (!empty($data['status']) && $data['status'] == 'on') {
                 $data['status'] = STATUS_ACTIVE;
-            }elsE{
+            } else {
                 $data['status'] = STATUS_INACTIVE;
             }
-            OrderRepository::update($model,$data);
+            OrderRepository::update($model, $data);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

@@ -31,21 +31,6 @@ class Product extends Base
         'price' => 'double'
     ];
 
-//    protected $attributes = [
-//      'image_path',
-//      'image_thumbnail_path',
-//    ];
-//
-//
-//    public function getImagePathAttribute($value)
-//    {
-//        return Storage::disk('product')->url($this->image);
-//    }
-//
-//    public function getImageThumbnailPathAttribute($value)
-//    {
-//        return Storage::disk('product')->url($this->image_thumbnail);
-//    }
     public function filterName($query, $value){
         return $query->where($this->table.'.name','LIKE', "%".$value."%");
     }
@@ -62,6 +47,6 @@ class Product extends Base
         return $this->belongsToMany(Order::class, 'order_products', 'product_id', 'order_id')
             ->using(new class extends Pivot {
                 use UuidTrait;
-            })->withPivot('product_price', 'product_name', 'quantity');
+            })->withPivot('product_price', 'product_name', 'quantity','total');
     }
 }

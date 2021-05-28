@@ -19,16 +19,25 @@
                     <div class="tile-body">
                         <form class="row" role="form" id="search-form" method="post">
                             <div class="form-group col-md-2">
+                                <label class="control-label">Mã đơn hàng</label>
+                                <input class="form-control" name="search_code">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="control-label">Thời gian giao</label>
+                                <input class="form-control" name="search_delivery_time">
+                            </div>
+                            <div class="form-group col-md-2">
                                 <label class="control-label">Tên người nhận</label>
-                                <input class="form-control search_name" name="search_name" id="search_name">
+                                <input class="form-control " name="search_receiver_name" >
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="control-label">SĐT người nhận</label>
-                                <input class="form-control search_name" name="search_name" id="search_name">
+                                <input class="form-control " name="search_receiver_phone">
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="control-label">Trạng thái</label>
-                                <select class="form-control " name="search_status" >
+                                <select class="form-control" name="search_status" >
+                                    <option value="">Tất cả </option>
                                     @foreach(\App\Models\Order::listStatus() as $key =>  $value)
                                         <option value="{{ $key }}">{{ $value }}</option>
                                     @endforeach
@@ -69,5 +78,19 @@
     </main>
 @endsection
 @push('scripts')
-    <script src="{{ asset('assets/js/p/order.js') }}"></script>
+    <script src="{{ asset('assets/js/p/order.js') }}"></script>.
+    <script>
+
+        $('input[name=search_delivery_time]').daterangepicker({
+            timePicker: true,
+            timePicker24Hour: true,
+            timePickerIncrement: 1,
+            timePickerSeconds: false,
+            locale: {
+                format: 'HH:mm'
+            }
+        }).on('show.daterangepicker', function (ev, picker) {
+            picker.container.find(".calendar-table").hide();
+        });
+    </script>
 @endpush

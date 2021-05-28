@@ -10,6 +10,11 @@ class DateHelper
     const dateFormat = 'Y-m-d';
     const isoFormat  = 'Y-m-d\TH:i:s\Z';
     const dbTz       = 'UTC';
+    const date = 'd/m/Y';
+
+    public static function formatDate($value){
+        return date(self::date, strtotime($value));
+    }
 
     public static function dbNow($toFormat = false)
     {

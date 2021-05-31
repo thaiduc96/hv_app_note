@@ -1,11 +1,9 @@
 <div class="form-group">
     <label for="{{ $name }}">{{ $label }}</label>
     <select class="form-control select2  {{ $name }}" name="{{ $name }}" id="{{ $name }}">
-        @foreach ($list as $item)
-            <option value="{{ $item->id }}"
-                {{ old($name, !empty($model) ? (($model->$name == $item->id ) ? "selected" : "") : ""   ) }}
-            >
-                {{ $item->name }}
+        @foreach ($list as $key => $item)
+            <option value="{{ !empty($isEnum) ? $key : $item->id }}" {{ old($name, !empty($model) ? (($model->$name == (!empty($isEnum) ? $key : $item->id) ) ? "selected" : "") : ""   ) }}>
+                {{ !empty($isEnum) ? $item : $item->name }}
             </option>
         @endforeach
     </select>

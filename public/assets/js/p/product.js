@@ -30,4 +30,31 @@ showImage('image');
 
 $('body').on('click', '.btn-submit', function (e) {
     updateFormFile();
+})
+
+$('body').on('change', '.status', function (e) {
+    const href = $("#url-update-patch").data('href');
+    const data = {
+      'status' :  $(this).children("option").filter(":selected").val()
+    };
+    updatePatch(href,data);
 });
+
+function updatePatch(href, data) {
+    $.ajax({
+        type: 'PATCH',
+        url: href,
+        dataType: 'json',
+        data: data,
+        success: function (data) {
+            if (data.success === true) {
+                showSuccess();
+                oTable.draw();
+            }
+        }, error: function (data) {
+            showError(data.responseJSON.errorMessage);
+        }
+    }).done(function (data) {
+        $(this).prop('disabled', false);
+    });
+}

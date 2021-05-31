@@ -44,7 +44,14 @@
                                     Số lượng sẩn phẩm: {{ count($model->products) }}<br>
                                     Thời gian giao hàng: <strong>{{ $model->delivery_time_from }}
                                         - {{ $model->delivery_time_to }} </strong> <br>
-                                    Trạng thái: <strong> {{ \App\Models\Order::listStatus()[$model->status] }}</strong>
+                                    {{--                                    Trạng thái: <strong> {{ \App\Models\Order::listStatus()[$model->status] }}</strong>--}}
+                                    <div class="form-group">
+                                        <label class="control-label">Thời gian giao</label>
+                                        <input class="form-control" name="delivery_time">
+                                    </div>
+                                    @include("Admin::layouts.components.form-select",['model' => $model,'list' => \App\Models\Order::listStatus(),$errors,'name' => 'status','label' => 'Trạng thái','isEnum' => true])
+                                    <input type="hidden" id="url-update-patch"
+                                           data-href="{{ route('admin.orders.updatePatch',$model->id) }}">
                                 </address>
 
                             </div>
@@ -86,4 +93,29 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/js/p/product.js') }}"></script>
+    <script>
+        $('input[name=delivery_time]').daterangepicker({
+            autoApply: true,
+            timePicker: true,
+            timePicker24Hour: true,
+            timePickerIncrement: 5,
+            timePickerSeconds: false,
+            locale: {
+                format: 'HH:mm',
+                cancelLabel: 'Xoá',
+                applyLabel: 'Cập nhật',
+            },
+            startDate: "{{ $model->delivery_time_from }}",
+            endDate: "{{ $model->delivery_time_to }}"
+        }, function (start, end, label) {
+            const href = $("#url-update-patch").data('href');
+            const data = {
+                'delivery_time_from' : start.format('HH:mm:SS'),
+                'delivery_time_to' : end.format('HH:mm:SS'),
+            };
+            updatePatch(href,data);
+        }).on('show.daterangepicker', function (ev, picker) {
+            picker.container.find(".calendar-table").hide();
+        });
+    </script>
 @endpush

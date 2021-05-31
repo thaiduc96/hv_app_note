@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use App\Facades\OrderFacade;
+use App\Helpers\AuthHelper;
+use App\Repositories\Facades\OrderHistoryRepository;
+use App\Repositories\Facades\ServiceProviderHistoryRepository;
 use App\Traits\Filterable;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Order extends Base
 {
@@ -53,6 +57,12 @@ class Order extends Base
         'total' => 'double',
     ];
 
+    const ARR_SAVE_HISTORY = [
+        'delivery_time_from',
+        'delivery_time_to',
+        'status',
+    ];
+
 
     public static function boot()
     {
@@ -63,6 +73,23 @@ class Order extends Base
             $nextCode = OrderFacade::getNextCode();
             $model->code = $nextCode['code'];
             $model->code_number = $nextCode['code_number'];
+        });
+
+        static::updating(function ($model) {
+
+            $str = '';
+            foreach (self::ARR_SAVE_HISTORY as $column) {
+                if ($model->$column != $model->getOriginal($column)) {
+                    $str .= trans('validation.attributes.' . $column) . ' ' . $model->getOriginal($column) . ' -> ' . $model->$column . ". \n";
+                }
+            }
+            if (!empty($str)) {
+                OrderHistoryRepository::create([
+                    'order_id' => $model->id,
+                    'updated_by' => Auth::id(),
+                    'content' => $str
+                ]);
+            }
         });
     }
 

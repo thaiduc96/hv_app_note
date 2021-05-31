@@ -256,6 +256,7 @@ return [
         'quantity' => 'Số lượng',
         'delivery_time_from' => 'Thời gian bắt đầu',
         'delivery_time_to' => 'Thời gian kết thúc',
+        'status' => 'Trạng thái'
 
     ],
 ];

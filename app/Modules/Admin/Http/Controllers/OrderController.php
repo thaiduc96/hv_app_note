@@ -131,4 +131,17 @@ class OrderController extends Controller
         return $this->successResponse(true);
     }
 
+    public function updatePatch($id, Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            OrderRepository::update($id, $request->all());
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        return $this->successResponse(true);
+    }
+
 }

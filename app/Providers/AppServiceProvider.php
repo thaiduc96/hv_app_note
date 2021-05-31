@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
             'Shop',
             'Product',
             'Order',
-
+            'OrderHistory',
         ];
         foreach ($services as $service) {
             $fcd = 'App\\Facades\\' . $service . "Facade";
@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
             'Shop',
             'Product',
             'Order',
-
+            'OrderHistory',
         ];
 
         foreach ($repos as $name) {

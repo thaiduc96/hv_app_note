@@ -42,16 +42,20 @@
                                 <address>
                                     Tổng tiền: <strong>{{ number_format($model->total) }}</strong><br>
                                     Số lượng sẩn phẩm: {{ count($model->products) }}<br>
+                                    @if($model->status == \App\Models\Order::STATUS_COMPLETE)
                                     Thời gian giao hàng: <strong>{{ $model->delivery_time_from }}
                                         - {{ $model->delivery_time_to }} </strong> <br>
-                                    {{--                                    Trạng thái: <strong> {{ \App\Models\Order::listStatus()[$model->status] }}</strong>--}}
-                                    <div class="form-group">
-                                        <label class="control-label">Thời gian giao</label>
-                                        <input class="form-control" name="delivery_time">
-                                    </div>
-                                    @include("Admin::layouts.components.form-select",['model' => $model,'list' => \App\Models\Order::listStatus(),$errors,'name' => 'status','label' => 'Trạng thái','isEnum' => true])
-                                    <input type="hidden" id="url-update-patch"
-                                           data-href="{{ route('admin.orders.updatePatch',$model->id) }}">
+                                      Trạng thái: <strong> {{ \App\Models\Order::listStatus()[$model->status] }}</strong>
+                                    @else
+                                        <div class="form-group">
+                                            <label class="control-label">Thời gian giao</label>
+                                            <input class="form-control" name="delivery_time">
+                                        </div>
+
+                                        @include("Admin::layouts.components.form-select",['model' => $model,'list' => \App\Models\Order::listStatus(),$errors,'name' => 'status','label' => 'Trạng thái','isEnum' => true])
+                                        <input type="hidden" id="url-update-patch"
+                                               data-href="{{ route('admin.orders.updatePatch',$model->id) }}">
+                                    @endif
                                 </address>
 
                             </div>

@@ -13,4 +13,12 @@ class ProductRepositoryEloquent extends BaseRepositoryEloquent implements Produc
     {
         return new Product;
     }
+
+    public function filter($conditions = [], $columns = ['*'], $query = null)
+    {
+        $query = $query ?? $this->model;
+
+        $query = $query->with(['productImages']);
+        return parent::filter($conditions, $columns, $query);
+    }
 }

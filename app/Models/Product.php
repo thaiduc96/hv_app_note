@@ -32,6 +32,18 @@ class Product extends Base
         'price' => 'double'
     ];
 
+    protected $appends = array('image_path','image_thumbnail_path');
+
+    public function getImagePathAttribute()
+    {
+        return !empty($this->image) ? Storage::url($this->image) : null;
+    }
+
+    public function getImageThumbnailPathAttribute()
+    {
+        return !empty($this->image_thumbnail) ? Storage::url($this->image_thumbnail) : null;
+    }
+
     public function filterName($query, $value){
         return $query->where($this->table.'.name','LIKE', "%".$value."%");
     }

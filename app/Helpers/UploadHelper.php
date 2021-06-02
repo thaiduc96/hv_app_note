@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class UploadHelper
 {
-    public static function uploadFromRequest($requestName, $path = '', $disk = '')
+    public static function uploadFromRequest($requestName, $path = '')
     {
         $files = request()->file($requestName);
         if (!$files) {
@@ -19,23 +19,23 @@ class UploadHelper
         }
 
         if (!is_array($files)) {
-            return self::uploadSingle($files, $path, $disk);
+            return self::uploadSingle($files, $path);
         }
 
         $names = [];
         foreach ($files as $file) {
-            $names[] = self::uploadSingle($file, $path, $disk);
+            $names[] = self::uploadSingle($file, $path);
         }
 
         return $names;
     }
 
-    public static function uploadSingle($file, $path, $disk = '')
+    public static function uploadSingle($file, $path, $name = null)
     {
         $path = Storage::putFileAs(
             $path,
             $file,
-            self::generateFileName($file->getClientOriginalName())
+            !empty($name) ? $name : self::generateFileName($file->getClientOriginalName())
         );
 
         $path = str_replace('//', '/', $path);

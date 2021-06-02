@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Modules\Admin\Http\Requests\Product\CreateProductRequest;
 use App\Modules\Admin\Http\Requests\Product\UpdateProductRequest;
+use App\Repositories\Facades\ConversationImageRepository;
+use App\Repositories\Facades\ProductImageRepository;
 use App\Repositories\Facades\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,7 +38,7 @@ class ProductController extends Controller
                     return view("Admin::layouts.components.datatable-status", ['status' => $model->status]);
                 })
                 ->editColumn('image', function ($model) {
-                    return view("Admin::layouts.components.image-datatables", ['url' =>$model->image]);
+                    return view("Admin::layouts.components.image-datatables", ['url' => $model->image]);
                 })
                 ->rawColumns(['status', 'image_thumbnail', 'action'])
                 ->make(true);
@@ -47,7 +49,7 @@ class ProductController extends Controller
     public function create()
     {
         $model = new Product();
-        return view('Admin::products.create',compact('model'));
+        return view('Admin::products.create', compact('model'));
     }
 
 
@@ -58,12 +60,17 @@ class ProductController extends Controller
         try {
             $path = UploadHelper::uploadFromRequest('image', config('uploadpath.product'));
             $data['image'] = $path;
-            if(!empty($data['status']) && $data['status'] == 'on'){
+            if (!empty($data['status']) && $data['status'] == 'on') {
                 $data['status'] = STATUS_ACTIVE;
-            }elsE{
+            } else {
                 $data['status'] = STATUS_INACTIVE;
             }
-            ProductRepository::create($data);
+            $data = ProductRepository::create($data);
+            dd($request->productImages);
+            if (!empty($request->productImages)) {
+                ProductImageRepository::updateProductId($request->productImages,$data->id);
+            }
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -84,18 +91,25 @@ class ProductController extends Controller
         DB::beginTransaction();
         try {
             $data = $request->all();
-            $path = UploadHelper::uploadFromRequest('image', config('uploadpath.product'));
-            $data['image'] = $path;
-            if(!empty($data['status']) && $data['status'] == 'on'){
-                $data['status'] = STATUS_ACTIVE;
-            }elsE{
-                $data['status'] = STATUS_INACTIVE;
+            if (!empty($request->image)) {
+                $path = UploadHelper::uploadFromRequest('image', config('uploadpath.product'));
+                $oldImage = $model->image;
+                $data['image'] = $path;
             }
 
-            $oldImage = $model->image;
+            if (!empty($data['status']) && $data['status'] == 'on') {
+                $data['status'] = STATUS_ACTIVE;
+            } else {
+                $data['status'] = STATUS_INACTIVE;
+            }
+            ProductRepository::update($model, $data);
+            if (!empty($request->productImages)) {
+                ProductImageRepository::updateProductId($request->productImages,$model->id);
+            }
 
-            ProductRepository::update($model,$data);
-            UploadHelper::delete($oldImage);
+            if(!empty($oldImage)){
+                UploadHelper::delete($oldImage);
+            }
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

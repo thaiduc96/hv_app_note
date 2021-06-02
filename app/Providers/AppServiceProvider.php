@@ -26,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
             'Config',
             'Shop',
             'Product',
+            'ProductImage',
             'Order',
             'OrderHistory',
         ];
@@ -47,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
             'Config',
             'Shop',
             'Product',
+            'ProductImage',
             'Order',
             'OrderHistory',
         ];

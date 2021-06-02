@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Filterable;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Storage;
@@ -48,5 +49,10 @@ class Product extends Base
             ->using(new class extends Pivot {
                 use UuidTrait;
             })->withPivot('product_price', 'product_name', 'quantity','total');
+    }
+
+    public function productImages(): HasMany
+    {
+        return $this->hasMany(ProductImage::class,'product_id','id');
     }
 }

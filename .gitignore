@@ -20,4 +20,4 @@ composer.lock
 /public/upload
 /storage/framework/laravel-excel
 
-/app/Console/Commands/CreateRepository.php
+/app/Console/Commands/CreateRepositoryModule.php

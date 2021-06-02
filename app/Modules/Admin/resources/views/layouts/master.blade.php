@@ -54,6 +54,7 @@
 <script type="text/javascript" src="{{asset('assets/js/plugins/sweetalert.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/plugins/bootstrap-datepicker.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/plugins/select2.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/js/plugins/dropzone.js')}}"></script>
 
 <script type="text/javascript" src="{{asset('assets/moment/moment.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/daterangepicker/daterangepicker.min.js')}}"></script>

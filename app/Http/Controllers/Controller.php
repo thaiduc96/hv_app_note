@@ -23,6 +23,20 @@ class Controller extends BaseController
         ], $status);
     }
 
+    protected function responseSuccessList($list, $model)
+    {
+        if (!empty(request()->page) or !empty(request()->limit)) {
+            $collectionName = "\App\Http\Resources\\$model\\" .$model . "Collection";
+            $data = new $collectionName($list);
+        } else {
+            $resourceName =  "\App\Http\Resources\\$model\\" .$model . "Resource";
+            $data = [
+                'data' => $resourceName::collection($list)
+            ];
+        }
+        return $this->successResponse($data);
+    }
+
     protected function successResponse($data)
     {
         return $this->response($data);

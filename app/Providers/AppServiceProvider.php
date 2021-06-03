@@ -29,10 +29,13 @@ class AppServiceProvider extends ServiceProvider
             'ProductImage',
             'Order',
             'OrderHistory',
+            'Notification',
+            'NotificationUser',
+            'FCM',
         ];
         foreach ($services as $service) {
             $fcd = 'App\\Facades\\' . $service . "Facade";
-            $sv  = 'App\\Services\\' . $service . "Service";
+            $sv = 'App\\Services\\' . $service . "Service";
             $this->app->singleton($fcd, function () use ($sv) {
                 return new $sv();
             });
@@ -51,6 +54,8 @@ class AppServiceProvider extends ServiceProvider
             'ProductImage',
             'Order',
             'OrderHistory',
+            'Notification',
+            'NotificationUser',
         ];
 
         foreach ($repos as $name) {

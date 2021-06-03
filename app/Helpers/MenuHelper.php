@@ -55,6 +55,33 @@ class MenuHelper
                         ]
                     ],
                 ]
+            ],'notifications' => [
+                'label' => 'Thông báo',
+                'icon' => 'icon icon-present',
+                'child_route_name' => [
+                    'admin.notifications.index',
+                    'admin.notifications.create',
+                    'admin.notifications.edit',
+                ],
+                'sub_menu' => [
+                    [
+                        'label' => 'Danh sách thông báo',
+                        'icon' => 'fa fa-caret-right',
+                        'route_name' => 'admin.notifications.index',
+                        'child_route_name' => [
+                            'admin.notifications.index',
+                            'admin.notifications.edit'
+                        ]
+                    ],
+                    [
+                        'label' => 'Tạo thông báo',
+                        'icon' => 'fa fa-caret-right',
+                        'route_name' => 'admin.notifications.create',
+                        'child_route_name' => [
+                            'admin.notifications.create',
+                        ]
+                    ],
+                ]
             ],
             'shops' => [
                 'label' => 'Địa chỉ',

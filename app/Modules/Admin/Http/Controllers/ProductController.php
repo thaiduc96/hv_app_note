@@ -5,9 +5,8 @@ namespace App\Modules\Admin\Http\Controllers;
 use App\Helpers\UploadHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Modules\Admin\Http\Requests\Product\CreateProductRequest;
-use App\Modules\Admin\Http\Requests\Product\UpdateProductRequest;
-use App\Repositories\Facades\ConversationImageRepository;
+use App\Modules\Admin\Http\Requests\Product\CreateNotificationRequest;
+use App\Modules\Admin\Http\Requests\Product\UpdateNotificationRequest;
 use App\Repositories\Facades\ProductImageRepository;
 use App\Repositories\Facades\ProductRepository;
 use Illuminate\Http\Request;
@@ -53,7 +52,7 @@ class ProductController extends Controller
     }
 
 
-    public function store(CreateProductRequest $request)
+    public function store(CreateNotificationRequest $request)
     {
         $data = $request->all();
         DB::beginTransaction();
@@ -85,7 +84,7 @@ class ProductController extends Controller
         return view('Admin::products.create', compact('model'));
     }
 
-    public function update(UpdateProductRequest $request, $id)
+    public function update(UpdateNotificationRequest $request, $id)
     {
         $model = ProductRepository::findOrFail($id);
         DB::beginTransaction();

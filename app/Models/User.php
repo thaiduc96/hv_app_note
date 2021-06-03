@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\Filterable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -91,6 +92,11 @@ class User extends Authenticatable implements JWTSubject
     public function forgotPasswords()
     {
         return $this->hasMany(UserForgotPassword::class,'user_id','id');
+    }
+
+    public function notificationUsers(): HasMany
+    {
+        return $this->hasMany(NotificationUser::class,'user_id','id');
     }
 
 }

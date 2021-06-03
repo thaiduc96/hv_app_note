@@ -12,8 +12,8 @@ class DateHelper
     const dbTz       = 'UTC';
     const date = 'd/m/Y';
 
-    public static function formatDate($value){
-        return date(self::date, strtotime($value));
+    public static function formatDate($value, $format = self::date){
+        return date($format, strtotime($value));
     }
 
     public static function dbNow($toFormat = false)

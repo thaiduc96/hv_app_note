@@ -47,6 +47,14 @@ return [
             'level' => 'debug',
         ],
 
+        'command_errors' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/command_errors/log.log'),
+            'level' => 'debug',
+            'days' => 30,
+            'permission' => 0777,
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),

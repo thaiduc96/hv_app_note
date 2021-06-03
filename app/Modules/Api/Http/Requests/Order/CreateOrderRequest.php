@@ -3,6 +3,7 @@
 namespace App\Modules\Api\Http\Requests\Order;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateOrderRequest extends FormRequest
 {
@@ -29,6 +30,7 @@ class CreateOrderRequest extends FormRequest
             'receiver_phone' => 'required',
             'note' => 'nullable',
             'device_token' => 'required',
+            'device_type' => ['required', Rule::in(['ios', 'android'])],
             'products' => 'required|array|min:1',
             'products.*.product_id' => 'required|exists:products,id,deleted_at,NULL',
             'products.*.quantity' => 'required|numeric|min:0|max:99999999999',

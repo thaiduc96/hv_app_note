@@ -1,5 +1,6 @@
 <?php
 
 return [
-  'product' => 'products'
+  'product' => 'products',
+  'notification' => 'notification'
 ];

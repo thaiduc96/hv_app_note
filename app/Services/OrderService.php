@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Helpers\AuthHelper;
 use App\Helpers\CodeHelper;
 use App\Models\Order;
+use App\Repositories\Facades\DeviceTokenRepository;
 use App\Repositories\Facades\OrderRepository;
 use App\Repositories\Facades\ProductRepository;
 
@@ -15,6 +16,12 @@ class OrderService
         if (AuthHelper::getGuardApi()->check()) {
             $input['user_id'] = AuthHelper::getUserApiId();
         }
+
+        DeviceTokenRepository::firstOrCreate([
+           'device_type' => $input['device_type'],
+           'device_token' => $input['device_token'],
+        ]);
+
         return $this->handleOrder($input);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DeviceToken extends Base
@@ -18,4 +19,10 @@ class DeviceToken extends Base
     {
         return $this->belongsTo(User::class,'user_id','id');
     }
+
+    public function notificationUsers(): HasMany
+    {
+        return $this->hasMany(NotificationUser::class,'device_token_id','id');
+    }
+
 }

@@ -17,4 +17,6 @@ defined('STATUS_INACTIVE') || define('STATUS_INACTIVE', 'inactive');
 defined('SEND_SMS') || define('SEND_SMS', 'sms');
 defined('SEND_EMAIL') || define('SEND_EMAIL', 'email');
 
+defined('NOTIFICATION_SYSTEM') || define('NOTIFICATION_SYSTEM', 'NOTIFICATION_SYSTEM');
+
 

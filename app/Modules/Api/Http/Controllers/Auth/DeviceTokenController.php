@@ -12,7 +12,6 @@ class DeviceTokenController extends Controller
     public function store(LoginDeviceTokenRequest $request){
 
         $a =DeviceTokenRepository::firstOrCreate($request->only('device_token','device_type'));
-        dd($a);
         return $this->successResponse(true);
     }
 }

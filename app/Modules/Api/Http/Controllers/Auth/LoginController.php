@@ -14,7 +14,7 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('phone', 'password');
         if ($token = AuthHelper::getGuardApi()->attempt($credentials)) {
             $user = AuthHelper::getUserApi();
 

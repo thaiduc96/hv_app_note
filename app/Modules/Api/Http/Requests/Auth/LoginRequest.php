@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
+            'phone' => 'required',
             'password' => 'required',
             'device_token' => 'required',
             'device_type' => ['required', Rule::in(['ios', 'android'])]

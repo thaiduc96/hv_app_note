@@ -7,6 +7,8 @@ Route::group(['prefix' =>'auth', 'namespace' => 'Auth'], function () {
     Route::post('register', 'RegisterController@register');
 
 
+    Route::post('login-device-token', 'DeviceTokenController@store');
+
 //    Route::patch('register-verify', 'RegisterController@verifyCode');
 //    Route::post('register-verify-resend', 'RegisterController@resendCode');
 //

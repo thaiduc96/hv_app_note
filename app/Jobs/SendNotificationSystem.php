@@ -46,7 +46,7 @@ class SendNotificationSystem implements ShouldQueue
                 $q->where('notification_id', $notificationId);
             })->take(100)->get();
             if (!empty($deviceTokens->toArray())) {
-                foreach ($deviceTokens as $item) {
+                foreach ($deviceTokens as $key => $item){
                     $notificationUser = NotificationUserRepository::create([
                         'image' => $notification->image,
                         'image_thumbnail' => $notification->image_thumbnail,
@@ -55,7 +55,7 @@ class SendNotificationSystem implements ShouldQueue
                         'body' => $notification->body,
                         'resource_id' => $notification->id,
                         'resource_table' => 'notifications',
-                        'notification_id' => $notification->id,
+                        'notification_id' => $notificationId,
                         'user_id' => $item->user_id,
                         'device_token_id' => $item->id,
                     ]);
@@ -64,7 +64,7 @@ class SendNotificationSystem implements ShouldQueue
                 SendNotificationSystem::dispatch($notificationId);
             }
         } catch (\Exception $e) {
-            Log::channel('command_errors')->debug($e);
+            Log::channel('command_errors')->debug(__CLASS__ . "@" . __FUNCTION__ . "--- SendNotificationSystem - Push error " .json_encode($e));
         }
     }
 }

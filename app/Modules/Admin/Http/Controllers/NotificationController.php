@@ -66,14 +66,14 @@ class NotificationController extends Controller
             $thumbnail = ImageHelper::createImageThumbnail($path, config('uploadpath.notification'));
             $data['image'] = $path;
             $data['image_thumbnail'] = $thumbnail;
-            if (!empty($data['send']) && $data['send'] == 'on') {
+            if (!empty($data['is_sent']) && $data['is_sent'] == 'on') {
                 $data['is_sent'] = true;
             }else{
                 unset( $data['is_sent']);
             }
             $model = NotificationRepository::create($data);
 
-            if (!empty($data['send']) && $data['send'] == 'on') {
+            if (!empty($data['is_sent']) && $data['is_sent'] == 'on') {
                 SendNotificationSystem::dispatch($model->id);
             }
 
@@ -113,13 +113,14 @@ class NotificationController extends Controller
             }
             $model = NotificationRepository::update($model, $data);
 
-            if (!empty($data['send']) && $data['send'] == 'on') {
+            if (!empty($data['is_sent']) && $data['is_sent'] == 'on') {
                 SendNotificationSystem::dispatch($model->id);
             }
             if (!empty($oldModel)) {
                 UploadHelper::delete($oldModel->image);
                 UploadHelper::delete($oldModel->image_thumbnail);
             }
+
             DB::commit();
 
         } catch (\Exception $e) {

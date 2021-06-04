@@ -38,15 +38,15 @@ class SendNotificationToUser implements ShouldQueue
     public function handle()
     {
         try {
-            $deviceToken = $this->notificationUser->deviceToken();
+            $deviceToken = $this->notificationUser->deviceToken;
             $result = FCMFacade::sendNotification(
                 $deviceToken->device_token,
                 $this->notificationUser->title,
                 $this->notificationUser->short_body,
                 $this->notificationUser->toArray(), null, $deviceToken->device_type, 'default', $this->timeout);
-            Log::channel('command_errors')->info($result);
+            Log::channel('command_errors')->info(__CLASS__ . "@" . __FUNCTION__ . "--- SendNotificationToUser - Push success " . $result);
         } catch (\Exception $e) {
-            Log::channel('command_errors')->debug(__CLASS__ . "@" . __FUNCTION__ . "--- NOTIFICATION - Push send " . json_encode($e));
+            Log::channel('command_errors')->debug(__CLASS__ . "@" . __FUNCTION__ . "--- SendNotificationToUser - Push error " . json_encode($e));
         }
     }
 }

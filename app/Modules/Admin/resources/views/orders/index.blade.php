@@ -47,9 +47,6 @@
                                 <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-search"></i>Tìm
                                     kiếm
                                 </button>
-                                <a class="btn btn-outline-success" href="{{ route('admin.orders.create') }}">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>Thêm mới
-                                </a>
                             </div>
                         </form>
                     </div>

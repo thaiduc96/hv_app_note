@@ -22,7 +22,7 @@
                               data-backpage="{{ route('admin.notifications.index') }}">
                             @include("Admin::layouts.components.form-input",['model' => $model,'errors' => $errors,'name' => 'title','label' => 'Tiêu đề *','type' => 'text'])
                             @include("Admin::layouts.components.form-input",['model' => $model,'errors' => $errors,'name' => 'short_body','label' => 'Nội dung rút gọn *','type' => 'text'])
-                            @include("Admin::layouts.components.form-checkbox-flip",['errors' => $errors,'name' => 'send','label' => 'Gửi thông báo?', 'labelOn' => 'Có', 'labelOff' => 'Không'])
+                            @include("Admin::layouts.components.form-checkbox-flip",['errors' => $errors,'name' => 'is_sent','label' => 'Gửi', 'labelOn' => 'Có', 'labelOff' => 'Không'])
                             @include("Admin::layouts.components.form-image",['model' => $model,'errors' => $errors,'name' => 'image','label' => 'Ảnh *'])
                             @include("Admin::layouts.components.form-textarea",['model' => $model,'errors' => $errors,'name' => 'body','label' => 'Nội dung'])
                         </form>
